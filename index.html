@@ -23,5 +23,5 @@ function loadImageFile(testEl) {
   if (!rFilter.test(oFile.type)) { alert("You must select a valid image file!"); return; }
   oFReader.readAsDataURL(oFile);
 } </script>
-<body> Hello<input id = "test" type="file" onchange="loadImageFile(this)" /> </body>
+<body> Hello<input type="file" onchange="loadImageFile(this)" /> </body>
 </html>
