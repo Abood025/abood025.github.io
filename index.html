@@ -59,6 +59,13 @@ $( ".inner-switch" ).on("click", function() {
     }
 });
 
+localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
+});
+
+if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
+    document.body.classList.add('dark-theme');
+}
+
 function black() {
 	document.body.style.backgroundColor="black"
 }
