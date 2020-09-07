@@ -3,77 +3,38 @@
 <head> <title> A B O O D </title> </head>
 <style> 
 
-$dark: #333;
-$light: #fff;
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
-:root {
-    font-size: 25vmin;
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
-    height: 100%;
+* {
+	box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
-    background-color: $light;
-    color: $dark;
-    transition: all 0.15s ease-out;
-
-    &.dark-theme {
-        background-color: $dark;
-        color: $light;
-    }
+	background-color: #fafafa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	margin: 0;
+	transition: background 0.2s linear;
 }
 
-#change-theme-btn {
-    font: inherit;
-    padding: 0.1em 0.25em;
-    border: 0;
-    outline: 0;
-    color: $light;
-    cursor: pointer;
-    transition: all 0.15s ease-out;
-    position: relative;
-    background-color: transparent;
-    overflow: hidden;
-
-    &::before, &::after {
-        content: '';
-        z-index: -1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: $dark;
-        transition: all 0.15s ease-out;
-    }
-
-    &::after {
-        background-color: $light;
-        left: 100%;
-    }
-
-    &:hover {
-        text-decoration: underline;
-    }
-
-    .dark-theme & {
-        color: $dark;
-
-        &::before {
-            left: -100%;
-        }
-
-        &::after {
-            left: 0;
-        }
-    }
+body.dark {
+	background: #292C35;
 }
+
+.checkbox {
+	opacity: 0;
+	position: absolute;
+}
+
+.label {
+	background-color: #111;
+	border-radius: 50px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
 </style>
 
@@ -92,7 +53,14 @@ body {
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
 </form> 
 
-   <button id="change-theme-btn">theme</button>
+   <div>
+	<input type="checkbox" class="checkbox" id="chk" />
+	<label class="label" for="chk">
+		<i class="fas fa-moon"></i>
+		<i class="fas fa-sun"></i>
+		<div class="ball"></div>
+	</label>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -148,14 +116,24 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-document.getElementById('change-theme-btn').addEventListener('click', function () {
-    let darkThemeEnabled = document.body.classList.toggle('dark-theme');
-    localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
+const chk = document.getElementById('chk');
+
+chk.addEventListener('change', () => {
+	document.body.classList.toggle('dark');
 });
 
-if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
-    document.body.classList.add('dark-theme');
-}
+// SOCIAL PANEL JS
+const floating_btn = document.querySelector('.floating-btn');
+const close_btn = document.querySelector('.close-btn');
+const social_panel_container = document.querySelector('.social-panel-container');
+
+floating_btn.addEventListener('click', () => {
+	social_panel_container.classList.toggle('visible')
+});
+
+close_btn.addEventListener('click', () => {
+	social_panel_container.classList.remove('visible')
+});
 
 </script>
 
