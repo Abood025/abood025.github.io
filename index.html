@@ -3,10 +3,6 @@
 <head> <title> A B O O D </title> </head>
 <style> 
 
-
-$dark: #333;
-$light: #fff;
-
 :root {
     font-size: 25vmin;
     font-family: 'Roboto', sans-serif;
@@ -20,13 +16,13 @@ body {
     justify-content: space-around;
     align-items: center;
     height: 100%;
-    background-color: $light;
-    color: $dark;
+    background-color:#fff;
+    color:#333;
     transition: all 0.15s ease-out;
 
     &.dark-theme {
-        background-color: $dark;
-        color: $light;
+        background-color:#333;
+        color:#fff;
     }
 }
 
@@ -35,7 +31,7 @@ body {
     padding: 0.1em 0.25em;
     border: 0;
     outline: 0;
-    color: $light;
+    color: #fff;
     cursor: pointer;
     transition: all 0.15s ease-out;
     position: relative;
@@ -50,12 +46,12 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: $dark;
+        background-color: #333;
         transition: all 0.15s ease-out;
     }
 
     &::after {
-        background-color: $light;
+        background-color: #fff;
         left: 100%;
     }
 
@@ -64,7 +60,7 @@ body {
     }
 
     .dark-theme & {
-        color: $dark;
+        color: #333;
 
         &::before {
             left: -100%;
