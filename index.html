@@ -3,32 +3,82 @@
 <head> <title> A B O O D </title> </head>
 <style> 
 
-.switch {
-    align-self: flex-end;
-    margin: 0.9375rem;
-}
-.inner-switch {
-    display: inline-block;
-    cursor: pointer;
-    border: 1px solid #555;
-    border-radius: 1.25rem;
-    width: 3.125rem;
-    text-align: center;
-    font-size: 1rem;
-    padding: 0.1875rem;
-    margin-left: 0.3125rem;
+
+$dark: #333;
+$light: #fff;
+
+:root {
+    font-size: 25vmin;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
-.dark,
-.dark * {
-    background-color: #222;
-    color: #e6e6e6;
-    border-color: #e6e6e6;
+body {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    background-color: $light;
+    color: $dark;
+    transition: all 0.15s ease-out;
+
+    &.dark-theme {
+        background-color: $dark;
+        color: $light;
+    }
+}
+
+#change-theme-btn {
+    font: inherit;
+    padding: 0.1em 0.25em;
+    border: 0;
+    outline: 0;
+    color: $light;
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    position: relative;
+    background-color: transparent;
+    overflow: hidden;
+
+    &::before, &::after {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $dark;
+        transition: all 0.15s ease-out;
+    }
+
+    &::after {
+        background-color: $light;
+        left: 100%;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    .dark-theme & {
+        color: $dark;
+
+        &::before {
+            left: -100%;
+        }
+
+        &::after {
+            left: 0;
+        }
+    }
 }
 
 </style>
 
-<body> Belo  <br> <form>
+<body> FBelo  <br> <form>
 	<input type="button" style="background-color:black" hover="background-color:#3e8e41" value="    " name="B1" onclick="black()" />
 	<input type="button" style="background-color:blue" value="    " name="B2" onclick="blue()" />
 	<input type="button" style="background-color:#ff00ff" value="    " name="B3" onclick="fuchsia()" />
@@ -43,28 +93,9 @@
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
 </form> 
 
-  <div class="switch">Dark mode:              
-        <span class="inner-switch">OFF</span>
-    </div>
-
+   <button id="change-theme-btn">theme</button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
-$( ".inner-switch" ).on("click", function() {
-    if( $( "body" ).hasClass( "dark" )) {
-      $( "body" ).removeClass( "dark" );
-      $( ".inner-switch" ).text( "OFF" );
-    } else {
-      $( "body" ).addClass( "dark" );
-      $( ".inner-switch" ).text( "ON" );
-    }
-});
-
-localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
-});
-
-if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
-    document.body.classList.add('dark-theme');
-}
 
 function black() {
 	document.body.style.backgroundColor="black"
@@ -116,7 +147,18 @@ function yellow() {
 
 function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
-} </script>
+} 
+
+document.getElementById('change-theme-btn').addEventListener('click', function () {
+    let darkThemeEnabled = document.body.classList.toggle('dark-theme');
+    localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
+});
+
+if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
+    document.body.classList.add('dark-theme');
+}
+
+</script>
 
 </body>
 </html>
