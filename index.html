@@ -27,7 +27,7 @@ img {
     align-self: flex-end;
     margin: 0.9375rem;
 }
-.inner-switch {
+#inner-switch {
     display: inline-block;
     cursor: pointer;
     border: 1px solid #555;
@@ -63,7 +63,7 @@ img {
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
 
  <div class="switch">Dark mode:              
-        <span class="inner-switch">OFF</span>
+        <span id="inner-switch">OFF</span>
     </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -121,7 +121,7 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-document.getElementByClass('inner-switch').addEventListener('click', function () {
+document.getElementById('inner-switch').addEventListener('click', function () {
     let darkThemeEnabled = document.body.classList.toggle('inner-switch');
     localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
 });
