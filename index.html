@@ -101,6 +101,15 @@ input:checked + .slider-theme:before {
     transform: translate(-50%,-50%) rotate(-45deg);
 } 
 
+
+.fa-moon {
+	color: #f1c40f;
+}
+
+.fa-sun {
+	color: #f39c12;
+}
+
 section {
     max-width: 60%;
     margin: 60px auto;
@@ -126,6 +135,10 @@ section {
           <em>Dark Theme</em>
           <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox"/>
+
+            <i class="fas fa-moon"></i>
+             <i class="fas fa-sun"></i>
+
             <div class="slider-theme"></div>
           </label>
      </div>
