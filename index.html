@@ -2,48 +2,108 @@
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head> <title> A B O O D </title> </head>
 <link href="https://fonts.googleapis.com/css?family=Assistant:400,700|Playfair+Display:900" rel="stylesheet">
-<style> body {
-    font-family: sans-serif;
-    font-size: 1.125rem;
-    display: flex;
-    flex-direction: column;
-    max-width: 50rem;
-    margin: 0 auto;
-    padding: 0 0.9375rem;   
-}
-small {
-    font-style: italic;
-}
-article {
-    display: flex;
-    flex-direction: column;
-}
-img {
-    max-width: 100%;
-    display: block;
-    align-self: center;
-}
-.switch {
-    align-self: flex-end;
-    margin: 0.9375rem;
-}
-#inner-switch {
-    display: inline-block;
-    cursor: pointer;
-    border: 1px solid #555;
-    border-radius: 1.25rem;
-    width: 3.125rem;
-    text-align: center;
-    font-size: 1rem;
-    padding: 0.1875rem;
-    margin-left: 0.3125rem;
+<style>
+:root {
+    --bg-color: #fff;
+    --h1-color: #000000;
+    --p-color: #2e2e2e;
 }
 
-.dark,
-.dark * {
-    background-color: #222;
-    color: #e6e6e6;
-    border-color: #e6e6e6;
+[data-theme="dark"] {
+    --bg-color: #000;
+    --h1-color: #ffffff;
+    --p-color: #e7e7e7;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Courier New', Courier, monospace;
+    transition: all 0.4s ease-in-out;
+}
+  
+h1 {
+    color: var(--h1-color);
+    font-weight: 600;
+}
+  
+p {
+    color: var(--p-color);
+}
+ 
+/** slider switch **/
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-switch-wrapper em {
+    margin-right: 10px;
+    font-size: 16px;
+    color: var(--p-color);
+}
+
+.theme-switch {
+    position: relative;
+    width: 50px;
+    height: 28px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider-theme {
+    background-color: #ccc;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+input:checked + .slider-theme {
+    background-color: #14b866;
+}
+
+.slider-theme:before {
+    content: "";
+    background-color: #fff;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 4px;
+    bottom: 4px;
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+}
+
+input:checked + .slider-theme:before {
+    transform: translateX(22px);
+}
+
+.slider-theme::after {
+    content: "";
+    display: block;
+    color: #fff;
+    width: 11px;
+    height: 5px;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    transform: translate(-50%,-50%) rotate(-45deg);
+} 
+
+section {
+    max-width: 60%;
+    margin: 60px auto;
 }
 
 </style>
@@ -62,9 +122,13 @@ img {
 	<input type="button" style="background-color:yellow" value="    " name="B11" onclick="yellow()" />
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
 
- <div class="switch">Dark mode:              
-        <span id="inner-switch">OFF</span>
-    </div>
+     <div class="theme-switch-wrapper">
+          <em>Dark Theme</em>
+          <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox"/>
+            <div class="slider-theme"></div>
+          </label>
+     </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -121,14 +185,28 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-document.getElementById('inner-switch').addEventListener('click', function () {
-    let darkThemeEnabled = document.body.classList.toggle('inner-switch');
-    localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
-});
+const toggleSwitch = document.getElementById('checkbox');
+const currentTheme = localStorage.getItem('data-theme');
 
-if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
-    document.body.classList.add('inner-switch');
-}
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}  
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('data-theme', 'dark');  
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('data-theme', 'light'); 
+    }
+} 
+
+toggleSwitch.addEventListener('change', switchTheme, false);
 
 </script>
 
