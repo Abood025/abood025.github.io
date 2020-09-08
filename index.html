@@ -1,104 +1,52 @@
 <html>
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head> <title> A B O O D </title> </head>
-<link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Assistant:400,700|Playfair+Display:900" rel="stylesheet">
 <style> 
 
-
-
-
-* {
-	box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+:root {
+  --clr-light: #fdffc4;
+  --clr-dark: #00332a;
+  --clr-primary: #dbffa2;
+  --clr-secondary: #c3fcf2;
+  --clr-accent: #ff7750;
+
+  --foreground: var(--clr-dark);
+  --background: var(--clr-light);
+
+  --ff-title: "Playfair Display", serif;
+  --ff-body: "Assistant", sans-serif;
+}
+
+.darkmode {
+  --clr-light: #fdffc4;
+  --clr-dark: #00332a;
+  --clr-primary: #202302;
+  --clr-secondary: #00100d;
+  --clr-accent: #ff7750;
+
+  --foreground: var(--clr-light);
+  --background: var(--clr-dark);
+}
+
 
 body {
-	background-color: #fafafa;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	margin: 0;
-	transition: background 0.2s linear;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--ff-body);
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-body.dark {
-	background: #292C35;
-}
-
-.checkbox {
-	opacity: 0;
-	position: absolute;
-}
-
-.label {
-	background-color: #111;
-	border-radius: 50px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-
-.label .ball {
-	background-color: #fff;
-	border-radius: 50%;
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	height: 22px;
-	width: 22px;
-	transform: translateX(0px);
-	transition: transform 0.2s linear;
-}
-
-.checkbox:checked + .label .ball {
-	transform: translateX(24px);
-}
-
-
-.fa-moon {
-	color: #f1c40f;
-}
-
-.fa-sun {
-	color: #f39c12;
-}
-
-	color: #001F61;
-}
-
-.floating-btn:focus {
-	outline: none;
-}
-
-.floating-text {
-	background-color: #001F61;
-	border-radius: 10px 10px 0 0;
-	color: #fff;
-	font-family: 'Muli';
-	padding: 7px 15px;
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	text-align: center;
-	z-index: 998;
-}
-
-.floating-text a {
-	color: #FF7500;
-	text-decoration: none;
-}
-
-@media screen and (max-width: 480px) {
-
-	.social-panel-container.visible {
-		transform: translateX(0px);
-	}
-	
-	.floating-btn {
-		right: 10px;
-	}
-}
+h1 {
+  font-size: calc(3rem + 7vw);
+  font-family: var(--ff-title);
 
 </style>
 
@@ -115,16 +63,11 @@ body.dark {
 	<input type="button" style="background-color:brown" value="    " name="B10" onclick="brown()" />
 	<input type="button" style="background-color:yellow" value="    " name="B11" onclick="yellow()" />
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
-</form> 
 
-   <div>
-	<input type="checkbox" class="checkbox" id="chk" />
-	<label class="label" for="chk">
-		<i class="fas fa-moon"></i>
-		<i class="fas fa-sun"></i>
-		<div class="ball"></div>
-	</label>
-</div>
+<button id="dark-mode-toggle" class="dark-mode-toggle">
+  <svg width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"><path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/></svg>
+</button>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -180,10 +123,42 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-const chk = document.getElementById('chk');
+let darkMode = localStorage.getItem('darkMode'); 
 
-chk.addEventListener('change', () => {
-	document.body.classList.toggle('dark');
+const darkModeToggle = document.querySelector('#dark-mode-toggle');
+
+const enableDarkMode = () => {
+  // 1. Add the class to the body
+  document.body.classList.add('darkmode');
+  // 2. Update darkMode in localStorage
+  localStorage.setItem('darkMode', 'enabled');
+}
+
+const disableDarkMode = () => {
+  // 1. Remove the class from the body
+  document.body.classList.remove('darkmode');
+  // 2. Update darkMode in localStorage 
+  localStorage.setItem('darkMode', null);
+}
+ 
+// If the user already visited and enabled darkMode
+// start things off with it on
+if (darkMode === 'enabled') {
+  enableDarkMode();
+}
+
+// When someone clicks the button
+darkModeToggle.addEventListener('click', () => {
+  // get their darkMode setting
+  darkMode = localStorage.getItem('darkMode'); 
+  
+  // if it not current enabled, enable it
+  if (darkMode !== 'enabled') {
+    enableDarkMode();
+  // if it has been enabled, turn it off  
+  } else {  
+    disableDarkMode(); 
+  }
 });
 
 </body>
