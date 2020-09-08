@@ -2,57 +2,50 @@
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <head> <title> A B O O D </title> </head>
 <link href="https://fonts.googleapis.com/css?family=Assistant:400,700|Playfair+Display:900" rel="stylesheet">
-<style>   --clr-accent: #ff7750;
-
-  --foreground: var(--clr-dark);
-  --background: var(--clr-light);
-
-  --ff-title: "Playfair Display", serif;
-  --ff-body: "Assistant", sans-serif;
+<style> body {
+    font-family: sans-serif;
+    font-size: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 0 0.9375rem;   
+}
+small {
+    font-style: italic;
+}
+article {
+    display: flex;
+    flex-direction: column;
+}
+img {
+    max-width: 100%;
+    display: block;
+    align-self: center;
+}
+.switch {
+    align-self: flex-end;
+    margin: 0.9375rem;
+}
+.inner-switch {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #555;
+    border-radius: 1.25rem;
+    width: 3.125rem;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.1875rem;
+    margin-left: 0.3125rem;
 }
 
-.darkmode {
-  --clr-light: #fdffc4;
-  --clr-dark: #00332a;
-  --clr-primary: #202302;
-  --clr-secondary: #00100d;
-  --clr-accent: #ff7750;
-
-  --foreground: var(--clr-light);
-  --background: var(--clr-dark);
+.dark,
+.dark * {
+    background-color: #222;
+    color: #e6e6e6;
+    border-color: #e6e6e6;
 }
 
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--ff-body);
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-h1 {
-  font-size: calc(3rem + 7vw);
-  font-family: var(--ff-title);
-  margin: 0 0 0.25em;
-  line-height: 1;
-}
-
-.subtitle {
-  max-width: 600px;
-}
-
-.btn-group {
-  margin: 2em 0;
-  display: relative;
-}
-
-.btn {
-  padding: 1em 2em;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-radius: 5px;
-  position: relative;
 </style>
 
 <body> FEo  <br> <form>
@@ -69,9 +62,9 @@ h1 {
 	<input type="button" style="background-color:yellow" value="    " name="B11" onclick="yellow()" />
 	<input type="button" style="background-color:#00ff00" value="    " name="B12" onclick="lgreen()" />
 
-<button id="dark-mode-toggle" class="dark-mode-toggle">
-  <svg width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 496"><path fill="currentColor" d="M8,256C8,393,119,504,256,504S504,393,504,256,393,8,256,8,8,119,8,256ZM256,440V72a184,184,0,0,1,0,368Z" transform="translate(-8 -8)"/></svg>
-</button>
+ <div class="switch">Dark mode:              
+        <span class="inner-switch">OFF</span>
+    </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -128,42 +121,14 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-let darkMode = localStorage.getItem('darkMode'); 
-
-const darkModeToggle = document.querySelector('#dark-mode-toggle');
-
-const enableDarkMode = () => {
-  // 1. Add the class to the body
-  document.body.classList.add('darkmode');
-  // 2. Update darkMode in localStorage
-  localStorage.setItem('darkMode', 'enabled');
-}
-
-const disableDarkMode = () => {
-  // 1. Remove the class from the body
-  document.body.classList.remove('darkmode');
-  // 2. Update darkMode in localStorage 
-  localStorage.setItem('darkMode', null);
-}
- 
-// If the user already visited and enabled darkMode
-// start things off with it on
-if (darkMode === 'enabled') {
-  enableDarkMode();
-}
-
-// When someone clicks the button
-darkModeToggle.addEventListener('click', () => {
-  // get their darkMode setting
-  darkMode = localStorage.getItem('darkMode'); 
-  
-  // if it not current enabled, enable it
-  if (darkMode !== 'enabled') {
-    enableDarkMode();
-  // if it has been enabled, turn it off  
-  } else {  
-    disableDarkMode(); 
-  }
+$( ".inner-switch" ).on("click", function() {
+    if( $( "body" ).hasClass( "dark" )) {
+      $( "body" ).removeClass( "dark" );
+      $( ".inner-switch" ).text( "OFF" );
+    } else {
+      $( "body" ).addClass( "dark" );
+      $( ".inner-switch" ).text( "ON" );
+    }
 });
 
 </body>
