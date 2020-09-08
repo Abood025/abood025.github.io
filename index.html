@@ -130,6 +130,15 @@ $( ".inner-switch" ).on("click", function() {
       $( ".inner-switch" ).text( "ON" );
     }
 });
+
+let darkThemeEnabled = document.body.classList.click('inner-switch');
+    localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
+});
+
+if (JSON.parse(localStorage.getItem('dark-theme-enabled'))) {
+    document.body.classList.add('inner-switch');
+}
+
 </script>
 
 </body>
