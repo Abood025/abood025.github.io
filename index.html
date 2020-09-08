@@ -121,17 +121,8 @@ function lgreen() {
 	document.body.style.backgroundColor="#00ff00"
 } 
 
-$( ".inner-switch" ).on("click", function() {
-    if( $( "body" ).hasClass( "dark" )) {
-      $( "body" ).removeClass( "dark" );
-      $( ".inner-switch" ).text( "OFF" );
-    } else {
-      $( "body" ).addClass( "dark" );
-      $( ".inner-switch" ).text( "ON" );
-    }
-});
-
-let darkThemeEnabled = document.body.classList.click('inner-switch');
+document.getElementByClass('inner-switch').addEventListener('click', function () {
+    let darkThemeEnabled = document.body.classList.toggle('inner-switch');
     localStorage.setItem('dark-theme-enabled', darkThemeEnabled);
 });
 
